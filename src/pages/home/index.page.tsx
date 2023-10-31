@@ -1,5 +1,8 @@
 import { FC, Fragment, useEffect, useState } from 'react'
 import { loginEndpoint, setClientToken } from '../../spotify.config'
+import PlayerPage from '../player/index.page';
+import Library from '../library/index.page';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export interface HomePageProps { }
 
@@ -31,11 +34,18 @@ const HomePage: FC<HomePageProps> = () => {
       <Fragment>
         <button onClick={loginSpotify}>Login Spotify</button>
       </Fragment>
-      : <Fragment>
-        <div className='text-3xl text-center'>
-          Home page 
-        </div>
-      </Fragment>
+      : (
+        <Fragment>
+          <Router>
+            <div className="main-body">
+              <Routes>
+                <Route path="/" element={<Library />} />
+                <Route path="/player" element={<PlayerPage />} />
+              </Routes>
+            </div>
+          </Router>
+        </Fragment>
+      )
   )
 }
 
